@@ -1,0 +1,303 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Auth-Server Api Docs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Аутентификация"
+                ],
+                "summary": "Эндпоинт для регистрации пользователей",
+                "description": "Регистрация пользователей",
+                "operationId": "38e3071463848ba373dfeae5623cdfa4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Имя пользователя",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "login": {
+                                        "description": "Логин пользователя",
+                                        "type": "string",
+                                        "example": "johnDoe123"
+                                    },
+                                    "email": {
+                                        "description": "Email пользователя",
+                                        "type": "string",
+                                        "example": "example@example.ru"
+                                    },
+                                    "password": {
+                                        "description": "Пароль пользователя",
+                                        "type": "string",
+                                        "example": "qwerty123"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "Подтверждение пароля",
+                                        "type": "string",
+                                        "example": "qwerty123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string",
+                                            "example": "23f24589-adf3-42d4-b632-30e7d94f9db5"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string",
+                                                            "example": "Указанный email не уникальный и уже кем-то используется."
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ошибки валидации входных параметров"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Аутентификация"
+                ],
+                "summary": "Эндпоинт для аутентификации пользователей",
+                "description": "Аутентификация пользователей",
+                "operationId": "b9b760991d94b179960cd7ddc93eedf2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email пользователя",
+                                        "type": "string",
+                                        "example": "example@example.ru"
+                                    },
+                                    "password": {
+                                        "description": "Пароль пользователя",
+                                        "type": "string",
+                                        "example": "qwerty123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string",
+                                            "example": "23f24589-adf3-42d4-b632-30e7d94f9db5"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string",
+                                                            "example": "Указанный email не уникальный и уже кем-то используется."
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ошибки валидации входных параметров"
+                    },
+                    "401": {
+                        "description": "Некорректный логин или пароль"
+                    }
+                }
+            }
+        },
+        "/api/v1/refresh": {
+            "post": {
+                "tags": [
+                    "Аутентификация"
+                ],
+                "summary": "Эндпоинт для обновления токена",
+                "description": "Обновление токена",
+                "operationId": "a501ac96cd420264a7019d4e727a867e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "refresh_token": {
+                                        "description": "Refresh token",
+                                        "type": "string",
+                                        "example": "7615dee3-1391-4ce2-ae7c-38f42cff4f77"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string",
+                                            "example": "23f24589-adf3-42d4-b632-30e7d94f9db5"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string",
+                                                            "example": "Указанный email не уникальный и уже кем-то используется."
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "refresh_token устарел или невалиден"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/google-redirect": {
+            "get": {
+                "tags": [
+                    "Аутентификация"
+                ],
+                "summary": "Эндпоинт авторизации через Google",
+                "description": "Авторизации через Google",
+                "operationId": "e5d96954d7a1424da19517a913c86600",
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string",
+                                            "example": "23f24589-adf3-42d4-b632-30e7d94f9db5"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string",
+                                                            "example": "Указанный email не уникальный и уже кем-то используется."
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Аутентификация",
+            "description": "Аутентификация"
+        }
+    ]
+}
