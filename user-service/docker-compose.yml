@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  php-user-service:
+    container_name: ${APP_NAME}-php
+    build:
+      context: .
+      dockerfile: docker/conf/php/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - main_network
+    restart: unless-stopped
+
+  nginx-user-service:
+    container_name: ${APP_NAME}-nginx
+    build:
+      dockerfile: docker/conf/nginx/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+        - "80:80"
+    networks:
+      - main_network
+    restart: unless-stopped
+
+networks:
+    main_network:
+        driver: bridge
+        name: ${APP_NAME}-main-network
+        ipam:
+            driver: default
