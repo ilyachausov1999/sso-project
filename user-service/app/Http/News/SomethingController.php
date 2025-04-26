@@ -14,9 +14,4 @@ class SomethingController extends Controller
     {
         return response()->json([$request->get('user')]);
     }
-
-    // chmod 755 -R /var
-//chmod -R gu+w storage
-//chmod -R guo+w storage
-//php artisan cache:clear
 }

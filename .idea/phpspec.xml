@@ -17,6 +17,9 @@
       <PhpSpecSuiteConfiguration>
         <option name="myPath" value="$PROJECT_DIR$/auth-server" />
       </PhpSpecSuiteConfiguration>
+      <PhpSpecSuiteConfiguration>
+        <option name="myPath" value="$PROJECT_DIR$/user-service" />
+      </PhpSpecSuiteConfiguration>
     </suites>
   </component>
 </project>
